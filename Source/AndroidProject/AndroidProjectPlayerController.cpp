@@ -3,6 +3,7 @@
 
 #include "AndroidProjectPlayerController.h"
 #include "EnhancedInputSubsystems.h"
+#include "M_PlayerState.h"
 #include "Engine/LocalPlayer.h"
 
 void AAndroidProjectPlayerController::BeginPlay()
@@ -15,4 +16,6 @@ void AAndroidProjectPlayerController::BeginPlay()
 		// add the mapping context so we get controls
 		Subsystem->AddMappingContext(InputMappingContext, 0);
 	}
+
+	AM_PlayerState* m_PlayerState = Cast<AM_PlayerState>(PlayerState);
 }

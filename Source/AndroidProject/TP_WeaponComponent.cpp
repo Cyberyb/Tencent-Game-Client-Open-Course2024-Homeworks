@@ -42,9 +42,13 @@ void UTP_WeaponComponent::Fire()
 			//Set Spawn Collision Handling Override
 			FActorSpawnParameters ActorSpawnParams;
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+			//ku: Projectile的Owner设定为枪
+			ActorSpawnParams.Owner = GetOwner();
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Projectile's owner is : %s"), *GetOwner()->GetName()));
 	
 			// Spawn the projectile at the muzzle
 			World->SpawnActor<AAndroidProjectProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			
 		}
 	}
 	
@@ -98,6 +102,10 @@ bool UTP_WeaponComponent::AttachWeapon(AAndroidProjectCharacter* TargetCharacter
 			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &UTP_WeaponComponent::Fire);
 		}
 	}
+
+	//ku: 枪的Owenr设置为拿枪的人
+	GetOwner()->SetOwner(Character->GetController());
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Gun's owner is : %s"), *Character->GetController()->GetName()));
 
 	return true;
 }

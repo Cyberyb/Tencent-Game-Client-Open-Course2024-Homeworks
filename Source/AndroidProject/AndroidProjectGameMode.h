@@ -13,6 +13,23 @@ class AAndroidProjectGameMode : public AGameModeBase
 
 public:
 	AAndroidProjectGameMode();
+
+	virtual void BeginPlay() override;
+
+	void GenImportantCube() const;
+
+	void GetPlayerPoints();
+	
+	FTimerHandle CountdownTimerHandle;  // 用于管理定时器
+
+	UPROPERTY(EditAnywhere)
+	int32 ImportantCubeNum = 3;
+
+	UPROPERTY(EditAnywhere)
+	float TimeToCountDown = 10.0f;
+
+	UFUNCTION()
+	void UpdateCountdown();
 };
 
 
